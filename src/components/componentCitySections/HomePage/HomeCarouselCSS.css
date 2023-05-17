@@ -1,0 +1,14 @@
+.image-gallery-image{
+    width: 100vw;
+}
+
+.image-gallery-slide{
+    &.center{
+    width: 100vw;
+    }
+}
+
+.image-gallery-slide .image-gallery-image {
+    width: 100%;
+    object-fit: cover;
+}

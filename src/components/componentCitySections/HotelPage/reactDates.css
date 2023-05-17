@@ -1,0 +1,22 @@
+.CalendarDay__selected_span {
+  background: #025ABB; 
+  color: white; 
+  border: 1px solid #7C7C80; 
+}
+
+/* // Will edit selected date or the endpoints of a range of dates */
+.CalendarDay__selected {
+  background: #025ABB;
+  color: white;
+}
+
+.CalendarDay__selected:hover {
+  background: #FCD800;
+  color: white;
+}
+
+
+.CalendarDay__hovered_span:hover,
+.CalendarDay__hovered_span {
+  background: #FCD800;
+}
