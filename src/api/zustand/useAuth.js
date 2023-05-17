@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useStore } from './authStore';
 
 export const selectIsLoggedIn = state => state.isLoggedIn;
