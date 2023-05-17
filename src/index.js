@@ -9,7 +9,7 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Router>
+    <Router basename='go-ukraine'>
       <App />
     </Router>
   </React.StrictMode>

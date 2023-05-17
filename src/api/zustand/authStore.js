@@ -44,9 +44,11 @@ const authStore = persist(
       return {
         ...state,
         currentUser: user,
+        isExist: true,
         isLoggedIn: isUserExist.password === logInData.password,
       };
     }),
+    reset: () => set({isExist: false}),
     logOut: () => set({
       currentUser: null,
       isLoggedIn: false,

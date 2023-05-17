@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { FormStyled, FieldStyled, FormContainer,
@@ -11,11 +11,21 @@ import { FormStyled, FieldStyled, FormContainer,
   InnerTextWrap } from './SignUpForm.styled';
 import { SocialMediaEnter } from './SocialMediaEnter';
 import { useStore } from '../../api/zustand/authStore';
+import { useAuth } from '../../api/zustand/useAuth';
+import Notiflix from 'notiflix';
 
 export const LoginForm = () => {
   const logIn = useStore(state => state.logIn);
   const hasntAccount = useStore(state => state.hasntAccount);
+  const reset = useStore((state) => state.reset);
+  const { isExist } = useAuth();
 
+  useEffect(() => {
+    return () => {
+      reset()
+    }
+  }, [reset])
+  
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).max(16).required(),
@@ -56,6 +66,7 @@ export const LoginForm = () => {
               name="password"
               placeholder="Password"
             />
+            {isExist && Notiflix.Notify.failure('Wrong password')}
             <ErrorMessage name="password" component="div" />
           </label>
           <LabelRememberMe htmlFor="rememberMe" className="rememberMe">
