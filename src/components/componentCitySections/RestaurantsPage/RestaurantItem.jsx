@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BtnStyled } from '../../../utils/buttonStyled';
 import {
@@ -23,16 +23,9 @@ import {
   StarsSvg,
 } from './RestaurantItem.styled';
 import FavoriteContext from '../../../api/context/favoriteContext';
-
-function cutTextDesc(text) {
-  const shortedText = text.length > 270 ? `${text.slice(0, 140)}...` : text;
-
-  return shortedText;
-}
-
-function getRandomRating() {
-  return ((Math.random() * 100) / 100 + 4).toFixed(1);
-}
+import { useAuth } from '../../../api/zustand/useAuth';
+import { cutTextDesc, formatSearchParams, getRandomRating } from '../../../utils/functionsHelpers';
+import { useLocation, useSearchParams} from 'react-router-dom';
 
 export const RestaurantItem = ({
   image,
@@ -40,70 +33,85 @@ export const RestaurantItem = ({
   desc,
   name,
   id,
+  category,
+  cuisine,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [searchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("cuisine");
+  const { isLoggedIn } = useAuth();
   const favoriteContext = useContext(FavoriteContext);
-  
+  const isItemfavorite = favoriteContext.isItemFavorite;
+  const [isFavorite, setIsFavorite] = useState(isItemfavorite(id));
+
   const clickHandler = () => {
     if (isFavorite) {
       setIsFavorite(false);
-      favoriteContext.removeFavoriteItem(id, 'restaurant')
+      favoriteContext.removeFavoriteItem(id, "restaurants");
     } else {
       setIsFavorite(true);
       const favoriteRestaurant = {
-         image,
-         desc,
-         name,
-         id,
-         category: 'restaurant',
-      }
+        image,
+        desc,
+        name,
+        id,
+        category,
+      };
       favoriteContext.addFavoriteItem(favoriteRestaurant);
     }
-  }
+  };
+
+  const isRender = selectedCategory === cuisine || !selectedCategory;
 
   return (
-  <RestaurantBox>
-    <ImgWrapper>
-      <RestaurantImage src={image} alt={name} />
-        {isFavorite ? <FavoriteSelectedSvg onClick={clickHandler}/>
-          : <FavoriteSvg onClick={clickHandler} />}
-    </ImgWrapper>
-    <RestaurantDetailsBox>
-      <RestaurantName>{name}</RestaurantName>
-      <ShortDescList>
-        <ShortDescItem>
-          {getRandomRating()}
-          {' '}
-          <StarsSvg />
-        </ShortDescItem>
-        <ShortDescItem><SpanPoint /></ShortDescItem>
-        <ShortDescItem>Open Now</ShortDescItem>
-        <ShortDescItem><SpanPoint /></ShortDescItem>
-        <ShortDescItem>{price || '$$ - $$$'}</ShortDescItem>
-      </ShortDescList>
-      <RestaurantDescription>
-        {cutTextDesc(desc)}
-        <MoreLink
-          to="https://www.tripadvisor.com/Restaurants-g294473-Ukraine.html"
-          target="_blank"
-        >
-          MORE
-        </MoreLink>
-      </RestaurantDescription>
-      <RestaurantCuisinesBox>
-        <div>
-          <CuisinesTitle>Cuisines</CuisinesTitle>
-          <CuisinesList>
-            <CuisinesItem>Ukrainian</CuisinesItem>
-            <CuisinesItem>Eastern European</CuisinesItem>
-            <CuisinesItem>European</CuisinesItem>
-          </CuisinesList>
-        </div>
-        <BtnStyled>Open in Maps</BtnStyled>
-      </RestaurantCuisinesBox>
-    </RestaurantDetailsBox>
-  </RestaurantBox>
-)
+    isRender && (
+      <RestaurantBox>
+        <ImgWrapper>
+          <RestaurantImage src={image} alt={name} />
+          {isLoggedIn &&
+            (isFavorite ? (
+              <FavoriteSelectedSvg onClick={clickHandler} />
+            ) : (
+              <FavoriteSvg onClick={clickHandler} />
+            ))}
+        </ImgWrapper>
+        <RestaurantDetailsBox>
+          <RestaurantName>{name}</RestaurantName>
+          <ShortDescList>
+            <ShortDescItem>
+              {getRandomRating()} <StarsSvg />
+            </ShortDescItem>
+            <ShortDescItem>
+              <SpanPoint />
+            </ShortDescItem>
+            <ShortDescItem>Open Now</ShortDescItem>
+            <ShortDescItem>
+              <SpanPoint />
+            </ShortDescItem>
+            <ShortDescItem>{price || "$$ - $$$"}</ShortDescItem>
+          </ShortDescList>
+          <RestaurantDescription>
+            {cutTextDesc(desc)}
+            <MoreLink
+              to='https://www.tripadvisor.com/Restaurants-g294473-Ukraine.html'
+              target='_blank'>
+              MORE
+            </MoreLink>
+          </RestaurantDescription>
+          <RestaurantCuisinesBox>
+            <div>
+              <CuisinesTitle>Cuisines</CuisinesTitle>
+              <CuisinesList>
+                <CuisinesItem>Ukrainian</CuisinesItem>
+                <CuisinesItem>Eastern European</CuisinesItem>
+                <CuisinesItem>European</CuisinesItem>
+              </CuisinesList>
+            </div>
+            <BtnStyled>Open in Maps</BtnStyled>
+          </RestaurantCuisinesBox>
+        </RestaurantDetailsBox>
+      </RestaurantBox>
+    )
+  );
 };
 
 RestaurantItem.propTypes = {

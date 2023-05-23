@@ -8,12 +8,17 @@ import axios from 'axios';
 import { HomeCarousel } from './HomeCarousel';
 import { HomeReview } from './HomeReview';
 import { LeaveReviewBtn } from './LeaveReviewBtn';
-import { HomeTitle, HomeDescription, ReviewSection, ReviewSectionTextWrapper, StyledLink } from './HomeSection.styled';
+import {
+  HomeTitle, HomeDescription, ReviewSection,
+  ReviewSectionTextWrapper, StyledLink
+} from './HomeSection.styled';
 import { Loader } from '../../Loader/Loader';
-import { Error } from '../../Loader/Error.jsx/Error';
+import { NotificationFailed } from '../../Notification/Notifications';
+import { CityInfoNotification } from '../../Notification/CityInfoNotification';
 
 export const HomeSection = ({ city }) => {
   const [cityData, setCityData] = useState(null);
+  const [reviewData, setReviewData] = useState(null);
   const { city: cityParam } = useParams();
   const selectedCity = city || cityParam;
 
@@ -27,17 +32,19 @@ export const HomeSection = ({ city }) => {
       try {
         setIsError(false);
         const cityInfoFromServer = await axios.get(`https://64521253bce0b0a0f73bdbe4.mockapi.io/city/${cityInLowerCase}`);
+        const cityReviewsFromServer = await axios.get(
+          `https://64521253bce0b0a0f73bdbe4.mockapi.io/city/reviews`
+        );
 
         if (cityInfoFromServer.data) {
-          console.log(cityInfoFromServer.data[0]);
           setCityData(cityInfoFromServer.data[0]);
+          setReviewData(cityReviewsFromServer.data);
         }
       } catch {
         console.log('serverdata error', console.error());
         setIsError(true);
       } finally {
         setIsLoading(false);
-        setIsError(false);
       }
     };
 
@@ -50,34 +57,33 @@ export const HomeSection = ({ city }) => {
 
   return (
     <>
-      {isError && <Error />}
+      {isError && !isLoading && (
+        <CityInfoNotification />
+      )}
       {!cityData && isLoading && <Loader />}
       {cityData && (
-      <div>
-        <HomeTitle>
-          {cityData.title}
-        </HomeTitle>
-        <HomeDescription>
-          {cityData.description}
-        </HomeDescription>
-        <HomeCarousel images={cityData.images} />
-        <ReviewSection>
-          <ReviewSectionTextWrapper>
-            <p>
-              Your  impressions of
-              {city}
-            </p>
-            <StyledLink
-              to={`https://www.google.com/search?q=${selectedCity}+ukraine+reviews&oq=${selectedCity}+ukraine+reviews`}
-              target="_blank"
-            >
-              View more
-            </StyledLink>
-          </ReviewSectionTextWrapper>
-          <HomeReview reviews={cityData.reviews} />
-          <LeaveReviewBtn />
-        </ReviewSection>
-      </div>
+        <div>
+          <HomeTitle>{cityData.title}</HomeTitle>
+          <HomeDescription>{cityData.description}</HomeDescription>
+          <HomeCarousel images={cityData.images} />
+          {!!reviewData.length && (
+            <ReviewSection>
+              <ReviewSectionTextWrapper>
+                <p>
+                  Your impressions of
+                  {city}
+                </p>
+                <StyledLink
+                  to={`https://www.google.com/search?q=${selectedCity}+ukraine+reviews&oq=${selectedCity}+ukraine+reviews`}
+                  target='_blank'>
+                  View more
+                </StyledLink>
+              </ReviewSectionTextWrapper>
+              <HomeReview reviews={reviewData} />
+              <LeaveReviewBtn />
+            </ReviewSection>
+          )}
+        </div>
       )}
     </>
   );

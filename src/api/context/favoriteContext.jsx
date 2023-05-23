@@ -10,21 +10,34 @@ export const FavoriteProvider = ({ children }) => {
     localStorage.setItem('favorites', JSON.stringify(favoriteItems));
   }, [favoriteItems]);
 
-  const addFavoriteItem = (item) => {
-    setFavoriteItems((prevItems) => [...prevItems, item]);
-  };
+ const addFavoriteItem = (item) => {
+   if (!favoriteItems.find((favItem) => favItem.id === item.id)) {
+     setFavoriteItems((prevItems) => [...prevItems, item]);
+   }
+ };
 
-  const removeFavoriteItem = (itemId, category) => {
-    setFavoriteItems((prevItems) =>
-      prevItems.filter(
-        (item) => item.category === category && item.id !== itemId
-      )
-    );
-  };
+
+// const removeFavoriteItem = (itemId, category) => {
+//   setFavoriteItems((prevItems) => {
+//     const updatedItems = prevItems.filter(
+//       (item) => {console.log(item.category, category)
+//         return (item.category === category) && (item.id !== itemId)
+//       }
+//     );
+//     return updatedItems;
+//   });
+// };
+const removeFavoriteItem = (itemId, category) => {
+  setFavoriteItems((prevItems) => {
+    const updatedItems = prevItems.filter((item) => item.id !== itemId);
+    return updatedItems;
+  });
+};
 
   const isItemFavorite = (itemId) => {
-    return favoriteItems.includes(itemId);
+    return favoriteItems.some((item) => item.id === itemId);
   };
+
 
   const favoriteContextValue = {
     favoriteItems: favoriteItems || [],
@@ -32,7 +45,7 @@ export const FavoriteProvider = ({ children }) => {
     removeFavoriteItem,
     isItemFavorite,
   };
-console.log(favoriteItems)
+
   return (
     <FavoriteContext.Provider value={favoriteContextValue}>
       {children}

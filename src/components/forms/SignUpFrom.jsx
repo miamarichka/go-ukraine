@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-import React, { Navigate, useState } from 'react';
+import React from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { shallow } from 'zustand/shallow';
@@ -34,7 +32,6 @@ export const SignUpForm = () => {
 
   const SubmitHandler = async(values) => {
     registerUser(values);
-  //   return <Navigate to="/account" replace />;
   };
 
   return (

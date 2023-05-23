@@ -4,10 +4,7 @@ import axios from 'axios';
 import { RestaurantsFilter } from './RestaurantsFilter';
 import { RestaurantList } from './RestaurantsList';
 import { Loader } from '../../Loader/Loader';
-import { Error } from '../../Loader/Error.jsx/Error';
-import {
-  FavoriteProvider,
-} from "../../../api/context/favoriteContext";
+import { NotificationFailed } from '../../Notification/Notifications';
 
 export const RestaurantsSection = ({ city }) => {
   const [restaurauntData, setRestaurauntData] = useState(null);
@@ -27,7 +24,6 @@ export const RestaurantsSection = ({ city }) => {
 
         if (cityInfoFromServer.data) {
           setRestaurauntData(cityInfoFromServer.data);
-          console.log(cityInfoFromServer);
         }
       } catch {
         setIsError(true);
@@ -45,19 +41,21 @@ export const RestaurantsSection = ({ city }) => {
   }, [selectedCity]);
 
   return (
-      <div>
-        {isError && <Error />}
-        {!restaurauntData && isLoading && <Loader />}
-        {restaurauntData && (
-          <>
-            <div>
-              <RestaurantsFilter />
-            </div>
-            <div>
-              <RestaurantList restaurants={restaurauntData} />
-            </div>
-          </>
-        )}
-      </div>
+    <div>
+      {isError && (
+        <NotificationFailed message={"Can` get restauraunts information"} />
+      )}
+      {!restaurauntData && isLoading && <Loader />}
+      {restaurauntData && (
+        <>
+          <div>
+            <RestaurantsFilter />
+          </div>
+          <div>
+            <RestaurantList restaurants={restaurauntData} />
+          </div>
+        </>
+      )}
+    </div>
   );
 };

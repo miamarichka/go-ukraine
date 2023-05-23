@@ -16,6 +16,8 @@ export const HotelList = ({ hotels }) => (
         description,
         price,
         location,
+        rating,
+        category,
         id,
         view_deal: deal } = hotel;
 
@@ -32,7 +34,9 @@ export const HotelList = ({ hotels }) => (
           location={location}
           image={image}
           price={price}
+          rating={rating}
           deal={deal}
+          category={category}
           favoriteHandleClick={onClick}
         />
       );
@@ -47,12 +51,16 @@ HotelList.propTypes = {
 HotelList.defaultProps = {
   hotels: [
     {
-      name: 'Khreschatyk City Hotel',
-      location: 'https://www.google.com/maps/search/Готелі/@49.2194456,24.8816852,6.08z/data=!4m2!2m1!6e3',
-      image: 'https://static-new.lhw.com/HotelImages/Final/LW3601/lw3601_28070673_720x450.jpg',
-      price: '3,678',
-      description: 'Located on the main Kiev street, between the European Square and the Independence Square in Kiev,Khreschatyk Hotel offers rooms with free WiFi and satellite TV.Guests are offered free access to the gym... ',
-      deal: 'https://www.booking.com/',
+      name: "Khreschatyk City Hotel",
+      location:
+        "https://www.google.com/maps/search/Готелі/@49.2194456,24.8816852,6.08z/data=!4m2!2m1!6e3",
+      image:
+        "https://static-new.lhw.com/HotelImages/Final/LW3601/lw3601_28070673_720x450.jpg",
+      price: "3,678",
+      description:
+        "Located on the main Kiev street, between the European Square and the Independence Square in Kiev,Khreschatyk Hotel offers rooms with free WiFi and satellite TV.Guests are offered free access to the gym... ",
+      deal: "https://www.booking.com/",
+      category:"hotels",
     },
   ],
 };

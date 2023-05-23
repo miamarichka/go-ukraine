@@ -10,7 +10,7 @@ import { Main } from './components/MainPage/Main';
 import { City } from './components/CityPage/City';
 import { HotelsSection } from './components/componentCitySections/HotelPage/HotelsSection';
 import { RestaurantsSection } from './components/componentCitySections/RestaurantsPage/RestaurantsSection';
-import { EntertainmentSection } from './components/componentCitySections/EntertainmentSection';
+import { EntertainmentSection } from './components/componentCitySections/EntertainmentPage/EntertainmentSection';
 import { DrivewaySection } from './components/componentCitySections/DrivewayPage/DrivewaySection';
 import { SharedLayout } from './utils/Layout';
 import { HomeSection } from './components/componentCitySections/HomePage/HomeSection';

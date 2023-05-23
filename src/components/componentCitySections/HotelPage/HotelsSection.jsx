@@ -7,9 +7,9 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { HotelList } from './HotelList';
 import { InputSection } from './InputSection';
-import { Error } from '../../Loader/Error.jsx/Error';
 import { Loader } from '../../Loader/Loader';
-import { FavoriteProvider } from '../../../api/context/favoriteContext';
+import { NotificationFailed } from '../../Notification/Notifications';
+
 
 export const HotelsSection = ({ city }) => {
   const [hotelData, setHotelData] = useState(null);
@@ -47,7 +47,7 @@ export const HotelsSection = ({ city }) => {
 
   return (
     <>
-      {isError && <Error />}
+      {isError && <NotificationFailed message={"Can` get hotels information"}/>}
       {!hotelData && isLoading && <Loader />}
       {hotelData && (
         <div>

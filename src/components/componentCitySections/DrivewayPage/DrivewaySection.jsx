@@ -19,7 +19,7 @@ import {
   TransportTitle,
 } from './Driveway.styled';
 import { Loader } from '../../Loader/Loader';
-import { Error } from '../../Loader/Error.jsx/Error';
+import { NotificationFailed } from '../../Notification/Notifications';
 
 const MapLink = ({ city }) => {
   const handleMapLinkClick = (e) => {
@@ -84,7 +84,7 @@ export const DrivewaySection = () => {
 
   return (
     <DrivewayPageWrapper>
-      {isError && <Error />}
+      {isError && <NotificationFailed message={"Can`t get route information"} />}
       {!routeData && isLoading && <Loader />}
       <DriveWayTitle>Map your way with Google Maps</DriveWayTitle>
       <DrivewayWrapper>

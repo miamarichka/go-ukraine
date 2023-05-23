@@ -11,18 +11,20 @@ margin-top: 26px;
 export const RestaurantList = ({ restaurants }) => {
 
   return (
-  <RestaurantListStyled>
-    {restaurants.map(restaurant => (
-      <RestaurantItem
-        key={restaurant.id}
-        id={restaurant.id}
-        name={restaurant.name}
-        image={restaurant.image}
-        desc={restaurant.description}
-      />
-    ))}
-  </RestaurantListStyled>
-)};
+    <RestaurantListStyled>
+      {restaurants.map((restaurant) => (
+        <RestaurantItem
+          key={restaurant.id}
+          id={restaurant.id}
+          name={restaurant.name}
+          image={restaurant.image}
+          desc={restaurant.description}
+          cuisine={restaurant.cuisine}
+          category={restaurant.category}
+        />
+      ))}
+    </RestaurantListStyled>
+  );};
 
 RestaurantList.propTypes = {
   restaurants: PropTypes.arrayOf(string),

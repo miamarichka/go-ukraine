@@ -32,6 +32,7 @@ export const EditProfileForm = () => {
 
   const SubmitHandler = async(values) => {
     setNewValues(values);
+    
   };
 
   return (

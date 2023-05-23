@@ -5,6 +5,7 @@ export const selectUser = state => state.currentUser;
 export const selectPicture = state => state.userImg;
 export const selectIsHasAccount = state => state.isHasAccount;
 export const selectIsExist = state => state.isExist;
+export const selectIsLoading = state => state.isLoading;
 
 export const useAuth = () => ({
   isLoggedIn: useStore(selectIsLoggedIn),
@@ -12,4 +13,5 @@ export const useAuth = () => ({
   picture: useStore(selectPicture),
   isHasAccount: useStore(selectIsHasAccount),
   isExist: useStore(selectIsExist),
+  isLoading: useStore(selectIsLoading),
 });
