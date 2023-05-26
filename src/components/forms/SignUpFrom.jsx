@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';

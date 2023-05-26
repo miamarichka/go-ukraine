@@ -25,7 +25,7 @@ export const LoginForm = () => {
   const logIn = useStore((state) => state.logIn);
   const hasntAccount = useStore((state) => state.hasntAccount);
   const reset = useStore((state) => state.reset);
-  const { isExist, isLoggedIn} = useAuth();
+  const { isExist } = useAuth();
 
   useEffect(() => {
     return () => {
