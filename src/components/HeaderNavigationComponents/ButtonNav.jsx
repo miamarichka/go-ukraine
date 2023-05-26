@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { BtnStyled } from '../../utils/buttonStyled';
 import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
@@ -10,23 +10,26 @@ export const ButtonNav = ({ buttonName }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { isHasAccount } = useAuth();
 
-  const toggleModal = () => {
-    setIsOpenModal(prevState => !prevState);
-  };
+const toggleModal = useCallback(() => {
+  setIsOpenModal((prevState) => !prevState);
+}, [setIsOpenModal]);
 
-  const modalHandler = (e) => {
-    if (e.code === 'Escape') {
+const modalHandler = useCallback(
+  (e) => {
+    if (e.code === "Escape") {
       toggleModal();
     }
-  };
+  },
+  [toggleModal]
+);
 
   useEffect(() => {
-    window.addEventListener('keydown', modalHandler);
+    window.addEventListener("keydown", modalHandler);
 
     return () => {
-      window.removeEventListener('keydown', modalHandler);
+      window.removeEventListener("keydown", modalHandler);
     };
-  }, [isOpenModal]);
+  }, [isOpenModal, modalHandler]);
 
   return (
     <>

@@ -1,9 +1,7 @@
 /** @format */
 import { useNavigate } from "react-router";
 import { BackButton } from "../AccountPage/Account.styled";
-import FavoriteContext, {
-  FavoriteProvider,
-} from "../../../api/context/favoriteContext";
+import FavoriteContext from "../../../api/context/favoriteContext";
 import { ReactComponent as ArrowLeft } from "../../Icons/Arrow-left.svg";
 import {
   CitySelect,
@@ -11,7 +9,7 @@ import {
   SavedContainer,
   TitleWrapper,
 } from "./SavedPage.styled";
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import { HotelItem } from "../../componentCitySections/HotelPage/HotelItem";
 import { RestaurantItem } from "../../componentCitySections/RestaurantsPage/RestaurantItem";
 import { NotificationInfo } from "../../Notification/Notifications";

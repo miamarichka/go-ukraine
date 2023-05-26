@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { BtnStyled } from '../../../utils/buttonStyled';
 import { ModalOverlay } from '../../ModalOverlay/ModalOverlay';
@@ -20,23 +19,26 @@ export const LeaveReviewBtn = () => {
   const { isLoggedIn } = useAuth();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const toggleModal = () => {
-    setIsOpenModal(prevState => !prevState);
-  };
+const toggleModal = useCallback(() => {
+  setIsOpenModal((prevState) => !prevState);
+}, [setIsOpenModal]);
 
-  const modalHandler = (e) => {
-    if (e.code === 'Escape') {
+const modalHandler = useCallback(
+  (e) => {
+    if (e.code === "Escape") {
       toggleModal();
     }
-  };
+  },
+  [toggleModal]
+);
 
   useEffect(() => {
-    window.addEventListener('keydown', modalHandler);
+    window.addEventListener("keydown", modalHandler);
 
     return () => {
-      window.removeEventListener('keydown', modalHandler);
+      window.removeEventListener("keydown", modalHandler);
     };
-  }, []);
+  }, [modalHandler]);
 
   return (
     <>

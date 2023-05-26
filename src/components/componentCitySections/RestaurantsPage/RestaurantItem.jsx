@@ -24,8 +24,8 @@ import {
 } from './RestaurantItem.styled';
 import FavoriteContext from '../../../api/context/favoriteContext';
 import { useAuth } from '../../../api/zustand/useAuth';
-import { cutTextDesc, formatSearchParams, getRandomRating } from '../../../utils/functionsHelpers';
-import { useLocation, useSearchParams} from 'react-router-dom';
+import { cutTextDesc, getRandomRating } from '../../../utils/functionsHelpers';
+import { useSearchParams} from 'react-router-dom';
 
 export const RestaurantItem = ({
   image,

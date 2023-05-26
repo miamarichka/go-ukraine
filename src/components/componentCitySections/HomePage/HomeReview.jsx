@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/require-default-props */
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ReactComponent as Stars } from '../../Icons/Stars.svg';
 import {
