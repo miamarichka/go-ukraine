@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { shallow } from 'zustand/shallow';
 import { useStore } from '../../api/zustand/authStore';
 import { FormStyled, FieldStyled, FormContainer,
   FormHeader, LabelRememberMe, SpanLine, SpanText,
@@ -11,10 +10,7 @@ import { FormStyled, FieldStyled, FormContainer,
 import { SocialMediaEnter } from './SocialMediaEnter';
 
 export const SignUpForm = () => {
-  const [currentUser, registerUser] = useStore(
-    state => [state.currentUser, state.registration],
-    shallow,
-  );
+  const registerUser = useStore((state) => state.registration);
   const hasAccount = useStore(state => state.hasAccount);
 
   const schema = yup.object().shape({

@@ -16,7 +16,6 @@ export const RestaurantsSection = ({ city }) => {
 
   useEffect(() => {
     const loadRestaurauntsInfo = async() => {
-      const cityInLowerCase = selectedCity.toLowerCase();
 
       try {
         setIsError(false);
