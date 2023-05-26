@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/go-ukraine/static/css/main.135dfb90.css",
-    "main.js": "/go-ukraine/static/js/main.a8181401.js",
+    "main.js": "/go-ukraine/static/js/main.5d1c18fa.js",
     "static/media/Inter-ExtraBold.ttf": "/go-ukraine/static/media/Inter-ExtraBold.e4a4cb7133001f282a15.ttf",
     "static/media/Inter-Black.ttf": "/go-ukraine/static/media/Inter-Black.143c28420846d45c5834.ttf",
     "static/media/Inter-Bold.ttf": "/go-ukraine/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
@@ -62,10 +62,10 @@
     "static/media/Close.svg": "/go-ukraine/static/media/Close.5e97bb430fd41be69d2013c8f2ddf957.svg",
     "static/media/Ellipse.svg": "/go-ukraine/static/media/Ellipse.eacfad0d548c309f0700e7b622a600f8.svg",
     "main.135dfb90.css.map": "/go-ukraine/static/css/main.135dfb90.css.map",
-    "main.a8181401.js.map": "/go-ukraine/static/js/main.a8181401.js.map"
+    "main.5d1c18fa.js.map": "/go-ukraine/static/js/main.5d1c18fa.js.map"
   },
   "entrypoints": [
     "static/css/main.135dfb90.css",
-    "static/js/main.a8181401.js"
+    "static/js/main.5d1c18fa.js"
   ]
 }
